@@ -1,3 +1,1 @@
 require("leyban")
-print("hello")
-
