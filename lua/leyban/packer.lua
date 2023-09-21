@@ -78,6 +78,8 @@ return require('packer').startup(function(use)
 
     use 'mg979/vim-visual-multi'
 
+    use 'lewis6991/gitsigns.nvim'
+
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
