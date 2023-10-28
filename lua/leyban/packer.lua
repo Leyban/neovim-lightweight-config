@@ -87,12 +87,6 @@ return require('packer').startup(function(use)
         end
     }
 
-    use {
-        'akinsho/bufferline.nvim',
-        tag = "*",
-        requires = 'nvim-tree/nvim-web-devicons'
-    }
-
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
     use 'leoluz/nvim-dap-go'
