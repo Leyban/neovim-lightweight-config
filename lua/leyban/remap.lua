@@ -45,6 +45,8 @@ vim.keymap.set("n", "<A-Down>", "<cmd>wincmd j<CR>")
 vim.keymap.set("n", "<A-Left>", "<cmd>wincmd h<CR>")
 vim.keymap.set("n", "<A-Right>", " <cmd>wincmd l<CR>")
 
+vim.keymap.set("i", "<C-H>", " <esc>vbc")
+
 -- debugging keymaps
 vim.keymap.set("n", "<F5>", ":lua require'dap'.continue()<CR>")
 vim.keymap.set("n", "<F6>", ":lua require'dap'.step_into()<CR>")
