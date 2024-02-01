@@ -114,4 +114,6 @@ return require('packer').startup(function(use)
             "nvim-tree/nvim-web-devicons"
         }
     }
+
+    use "Exafunction/codeium.vim"
 end)
