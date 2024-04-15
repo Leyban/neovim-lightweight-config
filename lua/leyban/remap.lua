@@ -24,9 +24,12 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- show error
-vim.keymap.set("n", "<C-k>", vim.diagnostic.open_float)
--- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-i>", vim.diagnostic.open_float)
+
+-- quick fix list
+vim.keymap.set("n", "<C-q>", "<cmd>cclose<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
@@ -37,8 +40,7 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("x", "<tab>", ">>")
 vim.keymap.set("x", "<S-tab>", "<<")
 
-vim.keymap.set("n", "<CR>", "o<esc>")
-vim.keymap.set("n", "<S-CR>", "i<CR><esc>")
+-- vim.keymap.set("n", "<CR>", "o<esc>")
 
 vim.keymap.set("n", "<A-Up>", "<cmd>wincmd k<CR>")
 vim.keymap.set("n", "<A-Down>", "<cmd>wincmd j<CR>")
@@ -67,3 +69,6 @@ vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document
 vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+
+-- quicksource
+vim.keymap.set("n", "<F4>", ":so ~/.config/nvim/init.lua<cr>")
