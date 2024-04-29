@@ -70,8 +70,6 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
 
-    use 'mg979/vim-visual-multi'
-
     use 'lewis6991/gitsigns.nvim'
 
     use {
@@ -87,26 +85,7 @@ return require('packer').startup(function(use)
         end
     }
 
-    use 'mfussenegger/nvim-dap'
-    use 'rcarriga/nvim-dap-ui'
-    use 'leoluz/nvim-dap-go'
-
-    use 'theHamsta/nvim-dap-virtual-text'
-    use 'nvim-telescope/telescope-dap.nvim'
-
     use 'tpope/vim-commentary'
-
-    use {
-        "folke/noice.nvim",
-        requires = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-        }
-    }
 
     use {
         "folke/trouble.nvim",
@@ -116,4 +95,6 @@ return require('packer').startup(function(use)
     }
 
     use "nvim-treesitter/nvim-treesitter-context"
+
+    use "Exafunction/codeium.vim"
 end)

@@ -49,19 +49,6 @@ vim.keymap.set("n", "<A-Right>", " <cmd>wincmd l<CR>")
 
 vim.keymap.set("i", "<C-H>", " <esc>vbc")
 
--- debugging keymaps
-vim.keymap.set("n", "<F5>", ":lua require'dap'.continue()<CR>")
-vim.keymap.set("n", "<F6>", ":lua require'dap'.step_into()<CR>")
-vim.keymap.set("n", "<r7>", ":lua require'dap'.step_over()<CR>")
-vim.keymap.set("n", "<r8>", ":lua require'dap'.step_out()<CR>")
-vim.keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>")
-vim.keymap.set("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-vim.keymap.set("n", "<leader>lp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
-vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
-vim.keymap.set("n", "<F9>", ":lua require'dap'.close()<CR>")
-vim.keymap.set("n", "<F12>", ":lua require'dap'.close()<CR> :lua require'dapui'.close()<CR>")
-
 -- trouble
 vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
 vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
