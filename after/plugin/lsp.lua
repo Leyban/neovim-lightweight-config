@@ -1,4 +1,4 @@
-local lsp = require('lsp-zero').preset({})
+local lsp = require('lsp-zero')
 
 lsp.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
@@ -8,39 +8,37 @@ lsp.on_attach(function(client, bufnr)
 
     local opts = { buffer = bufnr }
 
+    -- definition navigation
     vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', opts)
     vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', opts)
     vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
 
-    vim.keymap.set('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
+    -- diagnostics
+    vim.keymap.set('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
+
+    -- restart lsp
+    vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>')
 end)
 
--- (Optional) Configure lua language server for neovim
--- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
--- lsp.format_on_save({
---     format_opts = {
---         async = false,
---         timeout_ms = 10000,
---     },
---     servers = {
---         ['lua_ls'] = { 'lua' },
---         ['gopls'] = { 'go' },
---         ['pyright'] = { 'python' },
---     }
--- })
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = {},
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
+    },
+})
 
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "off"
-      }
+lspconfig.pyright.setup {
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off"
+            }
+        }
     }
-  }
 }
 
 lsp.setup()

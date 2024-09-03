@@ -25,7 +25,7 @@ return require('packer').startup(function(use)
 
     use {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        branch = 'v3.x',
         requires = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },             -- Required
@@ -97,4 +97,17 @@ return require('packer').startup(function(use)
     use "nvim-treesitter/nvim-treesitter-context"
 
     use "Exafunction/codeium.vim"
+
+    -- use {
+    --     "folke/which-key.nvim",
+    --     config = function()
+    --         vim.o.timeout = true
+    --         vim.o.timeoutlen = 1000
+    --         require("which-key").setup {
+    --             -- your configuration comes here
+    --             -- or leave it empty to use the default settings
+    --             -- refer to the configuration section below
+    --         }
+    --     end
+    -- }
 end)
