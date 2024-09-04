@@ -1,5 +1,6 @@
 local lsp = require('lsp-zero')
 
+vim.g.mapleader = " "
 lsp.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions

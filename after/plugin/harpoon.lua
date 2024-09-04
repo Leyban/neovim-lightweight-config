@@ -5,6 +5,7 @@ require("harpoon").setup({
     tabline = true
 })
 
+vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>a", mark.add_file)
 vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
