@@ -1,4 +1,5 @@
 local lsp = require('lsp-zero')
+local lspconfig = vim.lsp.config
 
 vim.g.mapleader = " "
 lsp.on_attach(function(client, bufnr)
@@ -26,13 +27,12 @@ require('mason-lspconfig').setup({
     ensure_installed = {},
     handlers = {
         function(server_name)
-            require('lspconfig')[server_name].setup({})
+            lspconfig.server_name.setup({})
         end,
     },
 })
 
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {
+lspconfig('pyright', {
     settings = {
         python = {
             analysis = {
@@ -40,6 +40,29 @@ lspconfig.pyright.setup {
             }
         }
     }
-}
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig('emmet_ls', {
+    -- on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "templ", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+    init_options = {
+      html = {
+        options = {
+          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+          ["bem.enabled"] = true,
+        },
+      },
+    }
+})
+
+lspconfig('tailwindcss', {
+    filetypes = {
+        "templ", "html", "jsx", "tsx"
+    }
+})
 
 lsp.setup()

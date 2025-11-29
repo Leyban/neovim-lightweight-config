@@ -34,6 +34,14 @@ local plugins = {
 
 	'tpope/vim-fugitive',
 
+    {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+    },
+
 	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v4.x',
@@ -57,6 +65,7 @@ local plugins = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
+            "ryanoasis/vim-devicons",
 		}
 	},
 
