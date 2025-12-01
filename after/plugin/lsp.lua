@@ -48,7 +48,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 lspconfig('emmet_ls', {
     -- on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = { "css", "templ", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
     init_options = {
       html = {
         options = {
@@ -58,11 +57,12 @@ lspconfig('emmet_ls', {
       },
     }
 })
+vim.lsp.enable('emmet_ls', {
+    "css", "templ", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" 
+})
 
-lspconfig('tailwindcss', {
-    filetypes = {
-        "templ", "html", "jsx", "tsx"
-    }
+vim.lsp.enable('tailwindcss', {
+    "templ", "html", "jsx", "tsx"
 })
 
 lsp.setup()
