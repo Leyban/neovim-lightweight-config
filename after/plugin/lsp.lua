@@ -1,26 +1,31 @@
-local lsp = require('lsp-zero')
+vim.g.mapleader = " "
+
 local lspconfig = vim.lsp.config
 
-vim.g.mapleader = " "
-lsp.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp.default_keymaps({ buffer = bufnr })
-    lsp.buffer_autoformat()
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(event)
+        local opts = { buffer = event.buf }
+        vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+        vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
 
-    local opts = { buffer = bufnr }
-
-    -- definition navigation
-    vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
-
-    -- diagnostics
-    vim.keymap.set('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
-
-    -- restart lsp
-    vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>')
-end)
+        -- autoformat on save
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client.supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = event.buf,
+                callback = function()
+                    vim.lsp.buf.format({ buffer = event.buf })
+                end
+            })
+        end
+    end
+})
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -33,7 +38,7 @@ require('mason-lspconfig').setup({
 })
 
 
-lspconfig('pyright', {
+vim.lsp.config('pyright', {
     settings = {
         python = {
             analysis = {
@@ -46,7 +51,7 @@ lspconfig('pyright', {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lspconfig('emmet_ls', {
+vim.lsp.config('emmet_ls', {
     -- on_attach = on_attach,
     capabilities = capabilities,
     init_options = {
@@ -58,17 +63,31 @@ lspconfig('emmet_ls', {
         },
     }
 })
-vim.lsp.enable('emmet_ls', {
-    "css", "templ", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact",
-    "vue"
+vim.lsp.config('emmet_ls', {
+    cmd = { 'emmet_ls' },
+    filetypes = { "css", "templ", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
+        "typescriptreact",
+        "vue" }
 })
+vim.lsp.enable('emmet_ls')
 
-vim.lsp.enable('tailwindcss', {
-    "templ", "html", "jsx", "tsx"
+vim.lsp.config('tailwindcss', {
+    filetypes = { "templ", "html", "javascriptreact", "typescriptreact" }
 })
+vim.lsp.enable('tailwindcss')
+
+vim.lsp.config('arduino_language_server', {
+    cmd = {
+        "arduino-language-server",
+        "-cli-config", "/home/leyban/.arduino15/arduino-cli.yaml",
+        "-fqbn", "arduino:avr:uno",
+        "-cli", vim.fn.exepath("arduino-cli"),
+        "-clangd", vim.fn.exepath("clangd"),
+    }
+})
+vim.lsp.enable('arduino_language_server')
 
 local severity = vim.diagnostic.severity
-
 vim.diagnostic.config({
     signs = {
         text = {
@@ -86,5 +105,3 @@ vim.lsp.buf.hover = function()
         border = "solid",
     })
 end
-
-lsp.setup()
